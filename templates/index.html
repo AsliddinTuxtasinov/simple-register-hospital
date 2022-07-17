@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Home{% endblock %}
+{% block content %}
+    <div class="container"><br>
+        <h1>Welcome to our hospital’s online registration</h1>
+        <ul>
+            <li><a href="{% url 'register' %}"><span>Click here to register for prodcedure</span></a></li>
+        </ul>
+    </div>
+{% endblock  %}

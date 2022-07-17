@@ -1,0 +1,17 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="py-5">
+  <div class="container">
+    <form class="mb-1 uniForm showForm" method="get" action="" id="postForm">
+      {{filter_form.form|crispy}}
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-1 mt-1">
+        <input type="submit" class="btn btn-primary btn-block form-control-same-height rounded-0" value="Search">
+      </div>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

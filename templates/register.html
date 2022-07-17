@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title%}{% if is_register %}Registration for prodcedure{% else %}Create type of doctors{% endif %}{% endblock  %}
+{% block content %}
+<div class="container"><br>
+
+    {% if messages %}
+    {% for m in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{m}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="card text">
+        <div class="card-body">
+            <h5 class="card-title">
+                {% if is_register %}Registration for prodcedure{% else %}Create type of doctors{% endif %}
+            </h5>
+        </div>
+    </div>
+
+    <div class="card text">
+        <div class="card-body">
+            {% if is_register %}
+            <form action="{% url 'register' %}" method="POST">{% csrf_token %}
+                {{form|crispy}}
+                <div class="d-grid gap-2 col-2 mx-auto"><br>
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+            </form>
+            {% elif is_goto_doctor %}
+            <form action="{{obj.get_goto_doctor_url}}" method="POST">{% csrf_token %}
+                {{form|crispy}}
+                <div class="mx-auto"><br>
+                    <button class="btn btn-primary" type="submit">Doctorga yo'naltirish tasdiqlash</button>
+                </div>
+            </form>
+            {% else %}
+            <form action="{% url 'create_doctor' %}" method="POST">{% csrf_token %}
+                {{form|crispy}}
+                <div class="d-grid gap-2 col-2 mx-auto"><br>
+                    <button class="btn btn-primary" type="submit">create</button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% load static %}
+{% if is_paginated %}
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="site-pagination">
+
+        {% if page_obj.has_previous %}
+          <a href="?page={{page_obj.previous_page_number}}">&laquo;</a>
+        {% else %}
+          <a style="cursor:pointer;">&laquo;</a>
+        {% endif %}
+
+        {% if page_obj.number|add:'-4' > 1 %}
+          <a href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a>
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+            <a class="active" style="cursor:pointer;">{{i}}</a>
+          {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+            <a href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+           <a href="?page={{ page_obj.number|add:'5' }}">&hellip;</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+          <a href="?page={{page_obj.next_page_number}}">&raquo;</a>
+        {% else %}
+          <a style="cursor:pointer;">&raquo;</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+{% endif %}

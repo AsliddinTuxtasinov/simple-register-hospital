@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title%}Login{% endblock  %}
+{% block content %}
+<div class="container"><br>
+
+    {% if messages %}
+        {% for m in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{m}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">Login Admin</h5>
+        </div>
+    </div>
+
+    <div class="card text">
+        <div class="card-body">
+            <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+                {{login_form|crispy}}
+                <div class="d-grid gap-2 col-2 mx-auto"><br>
+                    <button class="btn btn-primary" type="submit">login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

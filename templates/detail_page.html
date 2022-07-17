@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title%}Detail{% endblock  %}
+{% block content %}
+
+<div class="container"><br>
+
+    {% if messages %}
+    {% for m in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{m}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <table class="table container table table-bordered border-primary caption-top">
+        <h4>{{obj.full_name}}'s petition</h4>
+        <tbody>
+        <tr>
+            <td>Your registration number</td>
+            <td>{{obj.pk}}</td>
+        </tr>
+        <tr>
+            <td>Full Name</td>
+            <td>{{obj.full_name}}</td>
+        </tr>
+        <tr>
+            <td>Telefon number</td>
+            <td>{{obj.telephone_number}}</td>
+        </tr>
+
+        <tr>
+            <td>Email address</td>
+            <td>{{obj.email_address}}</td>
+        </tr>
+
+        <tr>
+            <td>Type of doctors</td>
+            <td>{{obj.type_of_doctors}}</td>
+        </tr>
+        <tr>
+            <td>Describe your condition</td>
+            <td>{{obj.describe_your_condition}}</td>
+        </tr>
+
+        <tr>
+            <td>Time procedure</td>
+            <td>{{obj.time_procedure}}</td>
+        </tr>
+
+        {% if is_doctor %}
+        <tr>
+            <td>Total cost of the treatments</td>
+            <td>{{obj.total_cost_of_the_treatments}} $</td>
+        </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+    {% if is_doctor %}
+    <div class="card text">
+        <div class="card-body">
+            <form action="{{obj.get_status_diseased_url}}" method="POST">{% csrf_token %}
+                {{action_form|crispy}}
+                <div class="d-grid gap-2 col-2 mx-auto"><br>
+                    <button class="btn btn-primary" type="submit">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

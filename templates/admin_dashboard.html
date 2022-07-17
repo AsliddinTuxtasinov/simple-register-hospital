@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title%}Admin's dashboard{% endblock %}
+{% block content %}
+<div class="container"><br>
+    <ul class="nav justify-content-center border">
+        {% if not is_doctor %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'create_doctor' %}">Create type of doctors</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Registration for prodcedure</a>
+        </li>
+    </ul>
+
+    {% include 'search.html' %}
+
+    <div class="card text-center">
+        <div class="card-body">
+            <h3 class="card-title">List of registered patients</h3>
+            <table class="table container table table-bordered border-primary caption-top">
+                <thead>
+                <tr>
+                    <th scope="col">number of registration</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Telefon number</th>
+                    <th scope="col">Email address</th>
+                    <th scope="col">Type of doctors</th>
+                    <th scope="col">Describe your condition</th>
+                    <th scope="col">Time procedure</th>
+                    {% if is_doctor %}
+                    <th scope="col">Total cost of the treatments</th>
+                    {% else %}
+                    <th scope="col">Doctorga yo'naltirish</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for obj in objects %}
+                <tr>
+                    <td>{{obj.pk}}</td>
+                    <td><a href="{{obj.get_absolute_url}}">{{obj.full_name}}</a></td>
+                    <td>{{obj.telephone_number}}</td>
+                    <td>{{obj.email_address}}</td>
+                    <td>{{obj.type_of_doctors}}</td>
+                    <td>{{obj.describe_your_condition}}</td>
+                    <td>{{obj.time_procedure}}</td>
+                    {% if is_doctor %}
+                    <td>{{obj.total_cost_of_the_treatments}} $</td>
+                    {% else %}
+                    <td>
+                        <a class="btn btn-primary" type="submit" href="{{obj.get_goto_doctor_url}}">Doctorga
+                            yo'naltirish</a>
+
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'pagination.html' %}<br>
+    </div>
+
+</div><br>
+{% endblock content %}
